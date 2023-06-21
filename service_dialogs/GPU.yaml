@@ -1,0 +1,106 @@
+---
+- description: vGPU Configuration
+  buttons: submit,cancel
+  label: GPU
+  dialog_tabs:
+  - description: 
+    display: 
+    label: Resources
+    display_method: 
+    display_method_options: 
+    position: 0
+    dialog_groups:
+    - description: 
+      display: 
+      label: vGPU
+      display_method: 
+      display_method_options: 
+      position: 0
+      dialog_fields:
+      - name: attention
+        description: ''
+        data_type: 
+        notes: 
+        notes_display: 
+        display: edit
+        display_method: 
+        display_method_options: {}
+        required: false
+        required_method: 
+        required_method_options: {}
+        default_value: The vm will be rebooted!
+        values: 
+        values_method: 
+        values_method_options: {}
+        options:
+          :protected: false
+          :show_past_days: false
+          :force_multi_value: false
+        label: Attention!
+        position: 0
+        validator_type: f
+        validator_rule: 
+        reconfigurable: false
+        dynamic: false
+        show_refresh_button: false
+        load_values_on_init: true
+        read_only: true
+        auto_refresh: false
+        trigger_auto_refresh: false
+        visible: true
+        refresh_fields: 
+        type: DialogFieldTextBox
+        resource_action:
+          action: 
+          resource_type: DialogField
+          ae_namespace: 
+          ae_class: 
+          ae_instance: 
+          ae_message: 
+          ae_attributes: {}
+        dialog_field_responders: []
+      - name: mdevType
+        description: ''
+        data_type: string
+        notes: 
+        notes_display: 
+        display: edit
+        display_method: 
+        display_method_options: {}
+        required: true
+        required_method: 
+        required_method_options: {}
+        default_value: ''
+        values_method: 
+        values_method_options: {}
+        options:
+          :sort_by: none
+          :sort_order: ascending
+          :force_multi_value: false
+          :show_past_days: false
+          :protected: false
+        label: vGPU tier
+        position: 1
+        validator_type: 
+        validator_rule: 
+        reconfigurable: false
+        dynamic: true
+        show_refresh_button: false
+        load_values_on_init: true
+        read_only: false
+        auto_refresh: false
+        trigger_auto_refresh: false
+        visible: true
+        refresh_fields: 
+        type: DialogFieldDropDownList
+        resource_action:
+          action: 
+          resource_type: DialogField
+          ae_namespace: System
+          ae_class: Request
+          ae_instance: MdevTypes
+          ae_message: 
+          ae_attributes: {}
+        dialog_field_responders: []
+        values: 
+  export_version: '5.11'
