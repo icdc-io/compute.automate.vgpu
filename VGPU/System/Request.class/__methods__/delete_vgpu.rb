@@ -5,31 +5,29 @@ $evm.log(:info, "======DELETING VGPU======")
 vm = $evm.root['vm']
 vm_uuid = vm.uid_ems
 ems = vm.ext_management_system
-endpoint = ems.endpoints.select { |endpoint| endpoint if endpoint.role == "default" }[0]
-ovirt_url = "https://#{endpoint.hostname + endpoint.path}"
-username = ems.authentication_userid
-password = ems.authentication_password
+endpoint = ems.endpoints.find_by(role: 'default')
+ovirt_url = "https://#{endpoint.hostname}#{endpoint.path}"
+username = ems.authentication_userid(:default)
+password = ems.authentication_password(:default)
 
 mdev_response = RestClient::Request.execute(
-  method: :get, 
-  url: "#{ovirt_url}/vms/#{vm_uuid}/mediateddevices",
+  :method => :get, 
+  :url => "#{ovirt_url}/vms/#{vm_uuid}/mediateddevices",
   :user => username,
   :password => password,
-  :verify_ssl => false)  
+  :verify_ssl => false
+)  
 
-vm_mediated_device = Hash.from_xml(mdev_response)["vm_mediated_devices"]["vm_mediated_device"]
+vm_mediated_devices = Hash.from_xml(mdev_response)['vm_mediated_devices']['vm_mediated_device']
+vm_mediated_devices.is_a?(Hash) ? [vm_mediated_devices] : vm_mediated_devices
 
-if vm_mediated_device.is_a? Hash
-  RestClient::Request.execute(method: :delete, url: "#{ovirt_url}/vms/#{vm_uuid}/mediateddevices/#{vm_mediated_device["id"]}",
+vm_mediated_devices.each do |vm_mediated_device|
+  RestClient::Request.execute(
+    :method => :delete,
+    :url => "#{ovirt_url}/vms/#{vm_uuid}/mediateddevices/#{vm_mediated_device['id']}",
     :user => username,
     :password => password,
-    :verify_ssl => false)
-elsif vm_mediated_device.is_a? Array
-  vm_mediated_device.collect { |d| d["id"] }.each do |mdev_uuid|
-    RestClient::Request.execute(method: :delete, url: "#{ovirt_url}/vms/#{vm_uuid}/mediateddevices/#{mdev_uuid}",
-      :user => username,
-      :password => password,
-      :verify_ssl => false)
-  end
+    :verify_ssl => false
+  )
 end
 $evm.instantiate("/System/Request/RestartVM")
