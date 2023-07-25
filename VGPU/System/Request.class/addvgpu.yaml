@@ -1,0 +1,13 @@
+---
+object_type: instance
+version: 1.0
+object:
+  attributes:
+    display_name: 
+    name: AddVGPU
+    inherits: 
+    description: 
+    relative_path: System/Request/AddVGPU
+  fields:
+  - on_entry:
+      value: add_vgpu
