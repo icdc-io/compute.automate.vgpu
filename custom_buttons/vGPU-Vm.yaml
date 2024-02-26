@@ -1,0 +1,92 @@
+---
+custom_button_set:
+- attributes:
+    name: vGPU|Vm|
+    description: vGPU
+    set_type: CustomButtonSet
+    guid: c69be9a5-1ad3-4d47-ab04-d843341fbbd0
+    read_only: 
+    set_data:
+      :button_order:
+      - 26000000000122
+      - 26000000000121
+      :button_icon: pficon pficon-image
+      :display: true
+      :applies_to_class: Vm
+      :group_index: 1
+    mode: 
+    owner_type: 
+    owner_id: 
+    userid: 
+    group_id: 
+  children:
+    custom_button:
+    - attributes:
+        guid: 1afc3cc6-9147-4b88-9647-439c20dad8f4
+        description: Add vGPU to vm
+        applies_to_class: Vm
+        visibility_expression: 
+        options:
+          :button_icon: pficon pficon-image
+          :button_type: default
+          :display: true
+          :open_url: false
+          :display_for: single
+          :submit_how: one
+        userid: admin
+        wait_for_complete: 
+        name: Add vGPU
+        visibility:
+          :roles:
+          - _ALL_
+        applies_to_id: 
+        enablement_expression: 
+        disabled_text: 
+      associations:
+        resource_action:
+        - attributes:
+            action: 
+            resource_type: CustomButton
+            ae_namespace: SYSTEM
+            ae_class: PROCESS
+            ae_instance: Request
+            ae_message: create
+            ae_attributes:
+              request: AddVGPU
+            configuration_template_id: 
+            configuration_template_type: 
+            dialog_name: GPU
+    - attributes:
+        guid: 8dfb4930-6b2e-4e3b-8eec-c1f7ecd05e42
+        description: Remove vGPU from vm
+        applies_to_class: Vm
+        visibility_expression: 
+        options:
+          :button_icon: pficon pficon-image
+          :button_type: default
+          :display: true
+          :open_url: false
+          :display_for: single
+          :submit_how: one
+        userid: admin
+        wait_for_complete: 
+        name: Remove vGPU
+        visibility:
+          :roles:
+          - _ALL_
+        applies_to_id: 
+        enablement_expression: 
+        disabled_text: 
+      associations:
+        resource_action:
+        - attributes:
+            action: 
+            resource_type: CustomButton
+            ae_namespace: SYSTEM
+            ae_class: PROCESS
+            ae_instance: Request
+            ae_message: delete
+            ae_attributes:
+              request: DeleteVGPU
+            configuration_template_id: 
+            configuration_template_type: 
