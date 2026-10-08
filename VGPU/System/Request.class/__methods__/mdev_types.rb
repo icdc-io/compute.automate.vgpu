@@ -1,6 +1,3 @@
-require 'ovirtsdk4'
-require 'rest-client'
-
 $evm.log(:info, "======GETTING MDEVTYPES======")
 vm = $evm.root['vm']
 ems = vm.ext_management_system
