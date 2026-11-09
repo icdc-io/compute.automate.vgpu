@@ -1,6 +1,3 @@
-require 'ovirtsdk4'
-require 'rest-client'
-
 $evm.log(:info, "======ADDING VGPU======")
 vm = $evm.root['vm']
 vm_uuid = vm.uid_ems
